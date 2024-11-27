@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from fla.layers import (ABCAttention, Attention, BasedLinearAttention,
-                        DeltaNet, GatedLinearAttention, GatedSlotAttention,
-                        HGRN2Attention, HGRNAttention, LinearAttention,
-                        MultiScaleRetention, ReBasedLinearAttention, BitAttention,
-                        SeptAttention)
+                        BitAttention, DeltaNet, GatedLinearAttention,
+                        GatedSlotAttention, HGRN2Attention, HGRNAttention,
+                        LinearAttention, MultiScaleRetention,
+                        ReBasedLinearAttention, SeptAttention)
 from fla.models import (ABCForCausalLM, ABCModel, DeltaNetForCausalLM,
                         DeltaNetModel, GLAForCausalLM, GLAModel,
                         GSAForCausalLM, GSAModel, HGRN2ForCausalLM, HGRN2Model,
@@ -13,6 +13,8 @@ from fla.models import (ABCForCausalLM, ABCModel, DeltaNetForCausalLM,
                         RWKV6ForCausalLM, RWKV6Model, TransformerForCausalLM,
                         TransformerModel, BitNetForCausalLM, BitNetModel, 
                         SeptNetForCausalLM, SeptNetModel)
+                        
+
 
 __all__ = [
     'ABCAttention',
