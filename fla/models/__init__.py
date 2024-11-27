@@ -18,6 +18,7 @@ from fla.models.samba import SambaConfig, SambaForCausalLM, SambaModel
 from fla.models.transformer import (TransformerConfig, TransformerForCausalLM,
                                     TransformerModel)
 from fla.models.bitnet import (BitNetConfig, BitNetForCausalLM, BitNetModel)
+from fla.models.septnet import (SeptNetConfig, SeptNetForCausalLM, SeptNetModel)
 
 __all__ = [
     'ABCConfig', 'ABCForCausalLM', 'ABCModel',
@@ -33,5 +34,6 @@ __all__ = [
     'RetNetConfig', 'RetNetForCausalLM', 'RetNetModel',
     'RWKV6Config', 'RWKV6ForCausalLM', 'RWKV6Model',
     'SambaConfig', 'SambaForCausalLM', 'SambaModel',
+    'SeptNetConfig', 'SeptNetForCausalLM', 'SeptNetModel',
     'TransformerConfig', 'TransformerForCausalLM', 'TransformerModel'
 ]
