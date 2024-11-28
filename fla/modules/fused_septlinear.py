@@ -536,7 +536,7 @@ def sept_linear(x, weight, bias=None, norm_weight=None, norm_bias=None, eps=1e-8
     w = weight
 
     # Apply RMS normalization to the input
-    x_norm = F.rms_norm(x, (x.size()[-1],), weight)
+    x_norm = F.rms_norm(x, (x.shape()[-1],))
 
     # Apply quantization to both activations and weights
     # Uses Straight-Through Estimator (STE) trick with .detach() for gradient flow
