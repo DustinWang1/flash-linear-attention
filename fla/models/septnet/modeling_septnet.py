@@ -18,10 +18,10 @@ from transformers.utils import logging
 
 from fla.layers.septattn import SeptAttention
 from fla.models.septnet.configuration_septnet import SeptNetConfig
-from fla.modules.fused_septlinear import FusedSeptLinear
+from fla.modules.fused_septlinear import SeptLinear
 from fla.modules import (FusedCrossEntropyLoss, FusedLinearCrossEntropyLoss,
                           RMSNorm)
-from fla.modules.activations import swiglu_linear
+from fla.modules.activations import swiglu_septlinear
 
 logger = logging.get_logger(__name__)
 
@@ -48,14 +48,14 @@ class SeptNetMLP(nn.Module):
         self.hidden_ratio = hidden_ratio
         self.intermediate_size = intermediate_size
 
-        self.gate_proj = FusedSeptLinear(self.hidden_size, self.intermediate_size * 2, bias=False)
-        self.down_proj = FusedSeptLinear(self.intermediate_size, self.hidden_size, bias=False)
+        self.gate_proj = SeptLinear(self.hidden_size, self.intermediate_size * 2, bias=False)
+        self.down_proj = SeptLinear(self.intermediate_size, self.hidden_size, bias=False)
         self.act_fn = ACT2FN[hidden_act]
 
     def forward(self, x):
         y = self.gate_proj(x)
         gate, y = y.chunk(2, -1)
-        return swiglu_linear(gate, y, self.down_proj.weight, self.down_proj.bias)
+        return swiglu_septlinear(gate, y, self.down_proj.weight, self.down_proj.bias)
 
 
 class SeptNetBlock(nn.Module):

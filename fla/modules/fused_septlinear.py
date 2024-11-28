@@ -517,6 +517,37 @@ def layer_norm_linear_quant_fn(
     )
 
 
+def sept_linear(x, weight, bias=None, norm_weight=None, norm_bias=None, eps=1e-8):
+    """
+    A functional version of BitLinear that applies quantization to activations and weights.
+
+    Args:
+        x: Input tensor with shape [n, d].
+        weight: Weight tensor with shape [out_features, in_features].
+        bias: Bias tensor with shape [out_features] (optional).
+        norm_weight: Weight tensor for RMS normalization with shape [in_features].
+        norm_bias: Bias tensor for RMS normalization with shape [in_features].
+        eps: A small constant for numerical stability in normalization.
+
+    Returns:
+        Output tensor with shape [n, out_features].
+    """
+    # Weight tensor
+    w = weight
+
+    # Apply RMS normalization to the input
+    x_norm = F.rms_norm(x, weight.shape, weight)
+
+    # Apply quantization to both activations and weights
+    # Uses Straight-Through Estimator (STE) trick with .detach() for gradient flow
+    x_quant = x_norm + (activation_quant(x_norm) - x_norm).detach()
+    w_quant = w + (weight_quant(w) - w).detach()
+    # Perform linear operation with quantized values
+    y = F.linear(x_quant, w_quant)
+
+    return y
+
+
 class SeptLinear(nn.Linear):
     """
     A custom linear layer that applies quantization on both activations and weights.
