@@ -18,10 +18,10 @@ from transformers.utils import logging
 
 from fla.layers.septattn import SeptAttention
 from fla.models.septnet.configuration_septnet import SeptNetConfig
-from fla.modules.fused_septlinear import SeptLinear
 from fla.modules import (FusedCrossEntropyLoss, FusedLinearCrossEntropyLoss,
-                          RMSNorm)
+                         RMSNorm)
 from fla.modules.activations import swiglu_septlinear
+from fla.modules.fused_septlinear import SeptLinear
 
 logger = logging.get_logger(__name__)
 
