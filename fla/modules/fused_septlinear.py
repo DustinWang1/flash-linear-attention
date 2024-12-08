@@ -15,6 +15,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import triton
 import triton.language as tl
+from torch.cuda.amp import autocast
 
 from fla.modules.layernorm import RMSNorm
 from fla.utils import contiguous
@@ -578,18 +579,20 @@ class SeptLinear(nn.Linear):
         Returns:
             An output tensor with shape [n, d].
         """
-        # Weight tensor
-        w = self.weight
 
-        # Apply RMS normalization to the input
-        x_norm = self.norm(x)
+        with autocast("cuda", dtype=torch.bfloat16):
+            # Weight tensor
+            w = self.weight
 
-        # Apply quantization to both activations and weights
-        # Uses Straight-Through Estimator (STE) trick with .detach() for gradient flow
-        x_quant = x_norm + (activation_quant(x_norm) - x_norm).detach()
-        w_quant = w + (weight_quant(w) - w).detach()
-        # Perform linear operation with quantized values
-        y = F.linear(x_quant, w_quant)
+            # Apply RMS normalization to the input
+            x_norm = self.norm(x)
+
+            # Apply quantization to both activations and weights
+            # Uses Straight-Through Estimator (STE) trick with .detach() for gradient flow
+            x_quant = x_norm + (activation_quant(x_norm) - x_norm).detach()
+            w_quant = w + (weight_quant(w) - w).detach()
+            # Perform linear operation with quantized values
+            y = F.linear(x_quant, w_quant)
 
         return y
 

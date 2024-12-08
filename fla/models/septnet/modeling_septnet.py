@@ -59,7 +59,7 @@ class SeptNetMLP(nn.Module):
 
 
 class SeptNetBlock(nn.Module):
-    def __init__(self, config: TransformerConfig, layer_idx: int):
+    def __init__(self, config: SeptNetConfig, layer_idx: int):
         super().__init__()
         self.hidden_size = config.hidden_size
 
