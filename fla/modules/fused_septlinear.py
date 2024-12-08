@@ -544,7 +544,7 @@ def sept_linear(x, weight, bias=None, norm_weight=None, norm_bias=None, eps=1e-8
     x_quant = x_norm + (activation_quant(x_norm) - x_norm).detach()
     w_quant = w + (weight_quant(w) - w).detach()
     # Perform linear operation with quantized values
-    y = F.linear(x_quant, w_quant)
+    y = F.linear(x_quant.to(torch.bfloat16), w_quant.to(torch.bfloat16))
 
     return y
 
