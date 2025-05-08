@@ -23,11 +23,12 @@ from fla.models.retnet import RetNetConfig, RetNetForCausalLM, RetNetModel
 from fla.models.rwkv6 import RWKV6Config, RWKV6ForCausalLM, RWKV6Model
 from fla.models.rwkv7 import RWKV7Config, RWKV7ForCausalLM, RWKV7Model
 from fla.models.samba import SambaConfig, SambaForCausalLM, SambaModel
+from fla.models.septnet import SeptNetConfig, SeptNetForCausalLM, SeptNetModel
 from fla.models.transformer import TransformerConfig, TransformerForCausalLM, TransformerModel
 
 __all__ = [
     'ABCConfig', 'ABCForCausalLM', 'ABCModel',
-    'BitNetConfig', 'BitNetForCausalLM', 'BitNetModel',
+    'BitNetConfig', 'SeptNetConfig', 'BitNetForCausalLM', 'BitNetModel',
     'DeltaNetConfig', 'DeltaNetForCausalLM', 'DeltaNetModel',
     'ForgettingTransformerConfig', 'ForgettingTransformerForCausalLM', 'ForgettingTransformerModel',
     'GatedDeltaNetConfig', 'GatedDeltaNetForCausalLM', 'GatedDeltaNetModel',
@@ -44,6 +45,7 @@ __all__ = [
     'RWKV6Config', 'RWKV6ForCausalLM', 'RWKV6Model',
     'RWKV7Config', 'RWKV7ForCausalLM', 'RWKV7Model',
     'SambaConfig', 'SambaForCausalLM', 'SambaModel',
+    'SeptNetConfig', 'SeptNetForCausalLM', 'SeptNetModel',
     'TransformerConfig', 'TransformerForCausalLM', 'TransformerModel',
     'GatedDeltaProductConfig', 'GatedDeltaProductForCausalLM', 'GatedDeltaProductModel',
 ]
